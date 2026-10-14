@@ -5,6 +5,12 @@ import argparse
 import sys
 
 try:
+    from brand import boot
+except Exception:
+    def boot(*a, **k):
+        pass
+
+try:
     from PIL import Image
 except ImportError:
     print("need Pillow: pip install Pillow")
@@ -70,6 +76,7 @@ def main(argv=None):
     p.add_argument("--output", required=True)
     p.add_argument("--key", required=True, type=int)
     a = p.parse_args(argv)
+    boot("Image Encryption", "CS-02", "shifts pixel values with a key - reversible")
     if a.encrypt:
         encrypt_image(a.input, a.output, a.key)
     else:
